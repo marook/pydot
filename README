@@ -1,6 +1,23 @@
 pydot - pydot is a writer for the dog graph file format
 
-1) Installation
+1) Introduction
+2) Requirements
+3) Installation
+4) Code Example
+5) Bugs
+6) Contact
+
+
+---------------------------------------------------------------------
+Introduction
+
+pydot allows you to write graphs in the dot language.
+
+
+---------------------------------------------------------------------
+Requirements
+
+* python 2.7
 
 
 ---------------------------------------------------------------------
@@ -14,3 +31,46 @@ If you haven't already extended your local python path then add the following
 to your environment configuration script. For example to your ~/.bashrc:
 
 $ export PYTHONPATH=~/.local/lib/python:$PYTHONPATH
+
+
+---------------------------------------------------------------------
+Code Example
+
+The following example shows how to write a simple directed graph into a file:
+
+import pydot
+
+with open('dgraph.dot', 'w') as f:
+     dot = pydot.DotWriter(f)
+
+     dot.writeGraphBegin('myGraph')
+
+     dot.writeVertex('First Vertex', color = 'red')
+     dot.writeVertex('Second Vertex', color = 'green')
+
+     dot.writeEdge('First Vertex', 'Second Vertex', color = 'blue')
+
+     dot.writeGraphEnd()
+
+The code above should write someting like the following to the file
+'dgraph.dot':
+
+digraph myGraph {
+        vFirst_Vertex [label="First Vertex" color=red]
+        vSecond_Vertex [label="Second Vertex" color=green]
+        vFirst_Vertex -> vSecond_Vertex [ color=blue]
+}
+
+
+---------------------------------------------------------------------
+Bugs
+
+Bugs can be reported via the github issue tracker:
+https://github.com/marook/pydot/issues
+
+
+---------------------------------------------------------------------
+Contact
+
+For anything further you can drope me a line via email to
+markus.pielmeier@gmail.com
