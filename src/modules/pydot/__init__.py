@@ -13,7 +13,7 @@ class DotWriter(object):
     def vertexId(self, vertex):
         return 'v' + self.vertexIdReplacePattern.sub('_', unicode(vertex))
 
-    def writeVertex(self, vertex, color = None):
+    def writeVertex(self, vertex, color = None, shape = None):
         self.out.write(self.indention)
         self.out.write(self.vertexId(vertex))
 
@@ -24,6 +24,10 @@ class DotWriter(object):
         if(not color is None):
             self.out.write(' color=')
             self.out.write(color)
+
+        if(not shape is None):
+            self.out.write(' shape=')
+            self.out.write(shape)
 
         self.out.write(']\n')
 
