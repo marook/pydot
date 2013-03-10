@@ -5,7 +5,7 @@ class DotWriter(object):
     def __init__(self, out, indention = '\t'):
         self.out = out
         self.indention = indention
-        self.vertexIdReplacePattern = re.compile('[ ()/.-]')
+        self.vertexIdReplacePattern = re.compile('[^a-zA-Z0-9_]')
 
     def writeGraphBegin(self, name):
         self.out.write('digraph %s {\n' % (name,))
