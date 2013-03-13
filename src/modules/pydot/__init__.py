@@ -13,7 +13,22 @@ class DotWriter(object):
     def vertexId(self, vertex):
         return 'v' + self.vertexIdReplacePattern.sub('_', unicode(vertex))
 
-    def writeVertex(self, vertex, color = None, shape = None):
+    def writeAttribute(self, key, value):
+        self.out.write(' ')
+        self.out.write(key)
+        self.out.write('="')
+        # TODO escape value
+        self.out.write(value)
+        self.out.write('"')
+
+    def writeAttributes(self, **kwargs):
+        for key, value in kwargs.iteritems():
+            if(value is None):
+                continue
+
+            self.writeAttribute(key, value)
+
+    def writeVertex(self, vertex, **kwargs):
         self.out.write(self.indention)
         self.out.write(self.vertexId(vertex))
 
@@ -21,17 +36,11 @@ class DotWriter(object):
         self.out.write(vertex)
         self.out.write('"')
 
-        if(not color is None):
-            self.out.write(' color=')
-            self.out.write(color)
-
-        if(not shape is None):
-            self.out.write(' shape=')
-            self.out.write(shape)
+        self.writeAttributes(**kwargs)
 
         self.out.write(']\n')
 
-    def writeEdge(self, fromVertex, toVertex, label = None, color = None):
+    def writeEdge(self, fromVertex, toVertex, **kwargs):
         self.out.write(self.indention)
         self.out.write(self.vertexId(fromVertex))
         self.out.write(' -> ')
@@ -39,11 +48,7 @@ class DotWriter(object):
 
         self.out.write(' [')
 
-        if(not label is None):
-            self.out.write(' label=%s' % (label,))
-
-        if(not color is None):
-            self.out.write(' color=%s' % (color,))
+        self.writeAttributes(**kwargs)
 
         self.out.write(']\n')
 
